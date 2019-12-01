@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 
 def get_salary_sj(programming_language):
+    load_dotenv()
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {
     'X-Api-App-Id': os.getenv('X-Api-App-Id')
@@ -23,7 +24,7 @@ def get_salary_sj(programming_language):
         vc_per_page = [offer for offer in requests.get(url=url, params=payload, headers=headers).json()['objects']]
         vacancies_bank.extend(vc_per_page)
     vacancies_processed = len(vacancies_bank)
-    vacancies_bank = []
+    salary_bank = []
     for vacancies in vacancies_bank:
         a = vacancies['payment_from']
         b = vacancies['payment_to']
@@ -33,13 +34,12 @@ def get_salary_sj(programming_language):
             c = a*1.2
         else:
             c = (a + b)/2
-        vacancies_bank.append(c)
+        salary_bank.append(c)
     if vacancies_processed != 0:
-        average_salary = int(sum(vacancies_bank)/vacancies_processed)
+        average_salary = int(sum(salary_bank)/vacancies_processed)
     else:
         average_salary = 0
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
 if __name__ == '__main__':
-    load_dotenv()
     print(get_salary_sj(''))

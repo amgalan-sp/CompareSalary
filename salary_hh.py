@@ -4,6 +4,7 @@ import os
 
 
 def get_salary_hh(programming_language):
+    load_dotenv()
     headers = {
     'User-Agent': os.getenv('user-agent_hh'),
     'Authorization': os.getenv('auth_token_hh')
@@ -39,7 +40,7 @@ def get_salary_hh(programming_language):
     vacancies_processed = len(salary_list)
     average_salary = int(sum(salary_list)/vacancies_processed)
     payload['only_with_salary'] = None
-    vacancies_found = requests.get(url=url_hh, params=payload, headers=headers_hh).json()['found']
+    vacancies_found = requests.get(url=url, params=payload, headers=headers).json()['found']
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
 if __name__ == '__main__':
