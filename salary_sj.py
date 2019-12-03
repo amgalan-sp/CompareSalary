@@ -42,7 +42,10 @@ def get_salary_sj(programming_language, token_sj):
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
 
-if __name__ == '__main__':
+def main():
     load_dotenv()
-    token_sj = os.getenv('X-Api-App-Id')
-    print(get_salary_sj(''))
+    print(get_salary_sj('', os.getenv('X-Api-App-Id')))
+
+
+if __name__ == '__main__':
+    main()

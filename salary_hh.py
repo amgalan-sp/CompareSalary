@@ -42,8 +42,11 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
     vacancies_found = requests.get(url=url, params=payload, headers=headers).json()['found']
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
-if __name__ == '__main__':
+
+def main():
     load_dotenv()
-    app_token_hh = os.getenv('user-agent_hh')
-    auth_token_hh = os.getenv('auth_token_hh')
-    print(get_salary_hh(''))
+    print(get_salary_hh('', os.getenv('user-agent_hh'), os.getenv('auth_token_hh')))
+
+
+if __name__ == '__main__':
+    main()

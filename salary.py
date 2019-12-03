@@ -7,8 +7,12 @@ from dotenv import load_dotenv
 def main():
     top_languages_list=('JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'C++', 'C#', 'C', 'Go', 'Shell', 'Objective-C',
                         'Scala', 'Swift', 'TypeScript')
-    table_data_hh = [list(get_salary_hh(programming_language)) for programming_language in top_languages_list]
-    table_data_sj = [list(get_salary_sj(programming_language)) for programming_language in top_languages_list]
+    load_dotenv()
+    app_token_hh = os.getenv('user-agent_hh')
+    auth_token_hh = os.getenv('auth_token_hh')
+    token_sj = os.getenv('X-Api-App-Id')
+    table_data_hh = [list(get_salary_hh(programming_language, auth_token_hh, app_token_hh)) for programming_language in top_languages_list]
+    table_data_sj = [list(get_salary_sj(programming_language, token_sj)) for programming_language in top_languages_list]
     title_hh = 'HH Moscow'
     title_sj = 'SJ Moscow'
     print(get_table(title_hh, func_hh))
@@ -22,5 +26,4 @@ def get_table(title, table_data):
     return table.table
 
 if __name__ == '__main__':
-    load_dotenv()
     main()
