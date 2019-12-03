@@ -2,8 +2,8 @@ import requests
 from dotenv import load_dotenv
 import os
 
+
 def get_salary_sj(programming_language):
-    load_dotenv()
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {
     'X-Api-App-Id': os.getenv('X-Api-App-Id')
@@ -42,4 +42,5 @@ def get_salary_sj(programming_language):
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
 if __name__ == '__main__':
+    load_dotenv()
     print(get_salary_sj(''))

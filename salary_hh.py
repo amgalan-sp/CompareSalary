@@ -4,7 +4,6 @@ import os
 
 
 def get_salary_hh(programming_language):
-    load_dotenv()
     headers = {
     'User-Agent': os.getenv('user-agent_hh'),
     'Authorization': os.getenv('auth_token_hh')
