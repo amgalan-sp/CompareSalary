@@ -1,6 +1,7 @@
 from terminaltables import AsciiTable
 from salary_hh import get_salary_hh
 from salary_sj import get_salary_sj
+from dotenv import load_dotenv
 
 
 def main():
@@ -21,4 +22,5 @@ def get_table(title, table_data):
     return table.table
 
 if __name__ == '__main__':
+    load_dotenv()
     main()
