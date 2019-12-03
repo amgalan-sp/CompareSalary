@@ -3,10 +3,10 @@ from dotenv import load_dotenv
 import os
 
 
-def get_salary_hh(programming_language):
+def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
     headers = {
-    'User-Agent': os.getenv('user-agent_hh'),
-    'Authorization': os.getenv('auth_token_hh')
+    'User-Agent': app_token_hh,
+    'Authorization': auth_token_hh
     }
     url = 'https://api.hh.ru/vacancies/'
     payload = {
@@ -44,4 +44,6 @@ def get_salary_hh(programming_language):
 
 if __name__ == '__main__':
     load_dotenv()
+    app_token_hh = os.getenv('user-agent_hh')
+    auth_token_hh = os.getenv('auth_token_hh')
     print(get_salary_hh(''))
