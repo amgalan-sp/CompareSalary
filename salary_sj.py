@@ -3,10 +3,10 @@ from dotenv import load_dotenv
 import os
 
 
-def get_salary_sj(programming_language):
+def get_salary_sj(programming_language, token_sj):
     url = 'https://api.superjob.ru/2.0/vacancies/'
     headers = {
-    'X-Api-App-Id': os.getenv('X-Api-App-Id')
+    'X-Api-App-Id': token_sj
     }
     payload = {
         'keywords':'Программист {}'.format(programming_language),
@@ -41,6 +41,8 @@ def get_salary_sj(programming_language):
         average_salary = 0
     return programming_language, average_salary, vacancies_found, vacancies_processed
 
+
 if __name__ == '__main__':
     load_dotenv()
+    token_sj = os.getenv('X-Api-App-Id')
     print(get_salary_sj(''))
