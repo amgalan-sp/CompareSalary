@@ -1,4 +1,5 @@
 import requests
+from approximate_salary import predict_rub_salary
 from dotenv import load_dotenv
 import os
 
@@ -27,17 +28,14 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
     salary_list = []
     for offer in vacancies_bank:
         if offer:
-            a = offer['from']
-            b = offer['to']
-            if a is None:
-                c = b*0.8
-            elif b is None:
-                c = a*1.2
-            else:
-                c = (a + b)/2
-            salary_list.append(c)
+            salary_from = offer['from']
+            salary_to = offer['to']
+            salary_list.append(predict_rub_salary(salary_from, salary_to))
     vacancies_processed = len(salary_list)
-    average_salary = int(sum(salary_list)/vacancies_processed)
+    if vacancies_processed != 0:
+        average_salary = int(sum(salary_list)/vacancies_processed)
+    else:
+        average_salary = 0
     payload['only_with_salary'] = None
     vacancies_found = requests.get(url=url, params=payload, headers=headers).json()['found']
     return programming_language, average_salary, vacancies_found, vacancies_processed
@@ -45,7 +43,7 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
 
 def main():
     load_dotenv()
-    print(get_salary_hh('', os.getenv('user-agent_hh'), os.getenv('auth_token_hh')))
+    print(get_salary_hh('', os.getenv('auth_token_hh'), os.getenv('user-agent_hh')))
 
 
 if __name__ == '__main__':
