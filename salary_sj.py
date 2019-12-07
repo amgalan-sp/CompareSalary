@@ -18,18 +18,18 @@ def get_salary_sj(programming_language, token_sj):
     job_request = requests.get(url=url, params=payload, headers=headers).json()
     page = 0
     pages = int(job_request['total'])/20
-    vacancies_bank = []
+    vacancies_list = []
     while page < pages + 1:
         payload['page'] = page
         page += 1
         vc_per_page = [offer for offer in requests.get(url=url, params=payload, headers=headers).json()['objects']]
-        vacancies_bank.extend(vc_per_page)
+        vacancies_list.extend(vc_per_page)
     vacancies_processed = len(vacancies_bank)
-    salary_bank = []
-    for vacancies in vacancies_bank:
+    salaries_list = []
+    for vacancies in vacancies_list:
         salary_from = vacancies['payment_from']
         salary_to = vacancies['payment_to']
-        salary_bank.append(predict_rub_salary(salary_from, salary_to))
+        salaries_list.append(predict_rub_salary(salary_from, salary_to))
     if vacancies_processed != 0:
         average_salary = int(sum(salary_bank)/vacancies_processed)
     else:
