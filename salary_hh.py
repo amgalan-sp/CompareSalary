@@ -31,9 +31,9 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
             salary_from = offer['from']
             salary_to = offer['to']
             salaries_list.append(predict_rub_salary(salary_from, salary_to))
-    vacancies_processed = len(salary_list)
+    vacancies_processed = len(salaries_list)
     if vacancies_processed != 0:
-        average_salary = int(sum(salary_list)/vacancies_processed)
+        average_salary = int(sum(salaries_list)/vacancies_processed)
     else:
         average_salary = 0
     payload['only_with_salary'] = None
