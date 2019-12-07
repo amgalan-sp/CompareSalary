@@ -24,7 +24,7 @@ def get_salary_sj(programming_language, token_sj):
         page += 1
         vc_per_page = [offer for offer in requests.get(url=url, params=payload, headers=headers).json()['objects']]
         vacancies_list.extend(vc_per_page)
-    vacancies_processed = len(vacancies_bank)
+    vacancies_processed = len(vacancies_list)
     salaries_list = []
     for vacancies in vacancies_list:
         salary_from = vacancies['payment_from']
