@@ -18,19 +18,19 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
     job_request = requests.get(url=url, params=payload, headers=headers).json()
     page = 0
     pages_number = 1
-    vacancies_bank = []
+    vacancies_list = []
     while page < pages_number:
         payload['page'] = page
         pages_number = job_request['pages']
         page += 1
         offer_per_page = [offer['salary'] for offer in job_request['items'] if offer['salary']['currency'] == 'RUR']
-        vacancies_bank.extend(offer_per_page)
-    salary_list = []
-    for offer in vacancies_bank:
+        vacancies_list.extend(offer_per_page)
+    salaries_list = []
+    for offer in vacancies_list:
         if offer:
             salary_from = offer['from']
             salary_to = offer['to']
-            salary_list.append(predict_rub_salary(salary_from, salary_to))
+            salaries_list.append(predict_rub_salary(salary_from, salary_to))
     vacancies_processed = len(salary_list)
     if vacancies_processed != 0:
         average_salary = int(sum(salary_list)/vacancies_processed)
