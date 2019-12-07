@@ -2,7 +2,7 @@ from terminaltables import AsciiTable
 from salary_hh import get_salary_hh
 from salary_sj import get_salary_sj
 from dotenv import load_dotenv
-
+import os
 
 def main():
     top_languages_list=('JavaScript', 'Java', 'Python', 'Ruby', 'PHP', 'C++', 'C#', 'C', 'Go', 'Shell', 'Objective-C',
@@ -15,8 +15,8 @@ def main():
     table_data_sj = [list(get_salary_sj(programming_language, token_sj)) for programming_language in top_languages_list]
     title_hh = 'HH Moscow'
     title_sj = 'SJ Moscow'
-    print(get_table(title_hh, func_hh))
-    print(get_table(title_sj, func_sj))
+    print(get_table(title_hh, table_data_hh))
+    print(get_table(title_sj, table_data_sj))
 
 
 def get_table(title, table_data):
