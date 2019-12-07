@@ -1,4 +1,5 @@
 import requests
+from approximate_salary import predict_rub_salary
 from dotenv import load_dotenv
 import os
 
@@ -26,15 +27,9 @@ def get_salary_sj(programming_language, token_sj):
     vacancies_processed = len(vacancies_bank)
     salary_bank = []
     for vacancies in vacancies_bank:
-        a = vacancies['payment_from']
-        b = vacancies['payment_to']
-        if a == 0:
-            c = b*0.8
-        elif b == 0:
-            c = a*1.2
-        else:
-            c = (a + b)/2
-        salary_bank.append(c)
+        salary_from = vacancies['payment_from']
+        salary_to = vacancies['payment_to']
+        salary_bank.append(predict_rub_salary(salary_from, salary_to))
     if vacancies_processed != 0:
         average_salary = int(sum(salary_bank)/vacancies_processed)
     else:
