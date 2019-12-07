@@ -31,7 +31,7 @@ def get_salary_sj(programming_language, token_sj):
         salary_to = vacancies['payment_to']
         salaries_list.append(predict_rub_salary(salary_from, salary_to))
     if vacancies_processed != 0:
-        average_salary = int(sum(salary_bank)/vacancies_processed)
+        average_salary = int(sum(salaries_list)/vacancies_processed)
     else:
         average_salary = 0
     return programming_language, average_salary, vacancies_found, vacancies_processed
