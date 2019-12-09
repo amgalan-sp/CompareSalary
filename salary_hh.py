@@ -12,7 +12,7 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
     url = 'https://api.hh.ru/vacancies/'
     payload = {
         'area': '1',
-        'text': "программист {}".format(programming_language),
+        'text': "Программист {}".format(programming_language),
         'only_with_salary': 'true'
     }
     job_request = requests.get(url=url, params=payload, headers=headers).json()
@@ -32,9 +32,9 @@ def get_salary_hh(programming_language, auth_token_hh, app_token_hh):
             salary_to = offer['to']
             salaries_list.append(predict_rub_salary(salary_from, salary_to))
     vacancies_processed = len(salaries_list)
-    if vacancies_processed != 0:
+    try:
         average_salary = int(sum(salaries_list)/vacancies_processed)
-    else:
+    except ZeroDivisionError:
         average_salary = 0
     payload['only_with_salary'] = None
     vacancies_found = requests.get(url=url, params=payload, headers=headers).json()['found']
